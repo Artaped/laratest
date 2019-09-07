@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\News;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -15,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users =  DB::table('users')->paginate(2);
+        $users = User::paginate(2);
         return view('admin.users.users', ['users' => $users]);
     }
 
@@ -41,6 +42,7 @@ class UserController extends Controller
             return redirect()->route('admin.users');
         }
         $user = User::add($request->all());
+        $user->setNews($request->get('news'));
         return redirect()->route('admin.users');
     }
 
@@ -64,7 +66,9 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::where('id', $id)->firstOrFail();
-        return view('admin.users.edit', ['user' => $user]);
+        $newses = News::pluck('title', 'id')->all();
+        $selectedNews = $user->news->pluck('id')->all();
+        return view('admin.users.edit', ['user' => $user, 'selectedNews'=>$selectedNews, 'newses' => $newses]);
     }
 
     /**

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserNews extends Migration
+class CreateUserNewsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,12 @@ class CreateUserNews extends Migration
     public function up()
     {
         Schema::create('user_news', function (Blueprint $table) {
+            $table->engine = 'MyISAM';
             $table->bigIncrements('id');
-            $table->integer('news_id');
-            $table->integer('user_id');
+            $table->integer('news_id')->unsigned();
+            $table->integer('user_id')->unsigned();
+            $table->foreign('news_id')->references('id')->on('news');
+            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

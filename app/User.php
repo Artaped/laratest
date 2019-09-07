@@ -49,12 +49,7 @@ class User extends Authenticatable
 
     public function news()
     {
-        return $this->belongsToMany(
-            News::class,
-            'user_news',
-            'user_id',
-            'news_id'
-        );
+        return $this->belongsToMany(News::class, 'user_news');
     }
 
     /**
@@ -64,12 +59,12 @@ class User extends Authenticatable
      */
     public function remove()
     {
-
         $this->delete();
     }
 
     /**
      * create new user
+     *
      * @param $filds
      * @return User
      */
@@ -90,5 +85,17 @@ class User extends Authenticatable
     {
         $this->fill($fields);
         $this->save();
+    }
+
+    /**
+     *
+     * @param $data
+     */
+    public function setNews($data)
+    {
+        if ($data == null) {
+            return;
+        }
+        $this->news()->sync($data);
     }
 }

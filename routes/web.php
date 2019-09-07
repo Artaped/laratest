@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Route;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -29,15 +31,15 @@ Route::get('/admin', 'HomeController@index')->name('home');
 
 //admin news
 Route::get('/admin/news/create', 'NewsController@create')->name('news.create');
-Route::post('/admin/news/store', 'NewsController@store');
+Route::post('/admin/news/store', 'NewsController@store')->name('news.store');
 Route::get('/admin/news/edit/{id}', 'NewsController@edit');
 Route::post('/admin/news/edit/{id}', 'NewsController@update');
 Route::get('/admin/news/delete/{id}', 'NewsController@destroy');
 //admin users
 Route::get('/admin/users/create', 'UserController@create')->name('users.create');
-Route::post('/admin/users/store', 'UserController@store');
-Route::get('/admin/users/edit/{id}', 'UserController@edit');
-Route::post('/admin/users/edit/{id}', 'UserController@update');
+Route::post('/admin/users/store', 'UserController@store')->name('user.store');
+Route::get('/admin/users/edit/{id}', 'UserController@edit')->name('edit.user');
+Route::post('/admin/users/edit/{id}', 'UserController@update')->name('user.update');
 Route::get('/admin/users/delete/{id}', 'UserController@destroy');
 
 Route::get('/admin/news', 'NewsController@index')->name('admin.news');

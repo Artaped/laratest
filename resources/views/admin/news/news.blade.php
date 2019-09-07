@@ -19,24 +19,24 @@
         </tr>
         </thead>
         <tbody>
-        <?php foreach ($newses as $news):?>
+        @foreach ($newses as $news)
         <tr>
-            <td><?=$news->title?></td>
-            <td><?=$news->status? "active":"passive"?></td>
+            <td>{{ $news->title }}</td>
+            <td>{{ $news->status? "active":"passive" }}</td>
             <td>
-                <a href="/admin/news/edit/<?=$news->id?>" >
+                <a href="/admin/news/edit/{{ $news->id }}" >
                     <button>Edit</button>
                 </a>
 
-                <a href="/admin/news/delete/<?=$news->id?>">
+                <a href="/admin/news/delete/{{ $news->id }}">
                     <button onclick="return confirm('are you sure?')" >
                         Delete
                     </button>
                 </a>
             </td>
         </tr>
-        <?php endforeach;?>
+         @endforeach
         </tbody>
     </table>
-    <?php echo $newses->render(); ?>
+    {{ $newses->render() }}
 @stop

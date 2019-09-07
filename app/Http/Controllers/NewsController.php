@@ -17,6 +17,7 @@ class NewsController extends Controller
     public function index()
     {
         $newses = DB::table('news')->paginate(2);
+
         return view('admin.news.news', ['newses' => $newses]);
     }
 
@@ -39,8 +40,11 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        News::add($request->all());
-        return redirect()->route('admin.news');
+        $news = News::add($request->all());
+        if($request->input('users')){
+            $news->users()->attach($request->input('users'));
+        }
+        return redirect()->route('admin.news', $news);
     }
 
     /**

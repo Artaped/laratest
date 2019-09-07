@@ -3,7 +3,6 @@
 namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Auth;
 
 class News extends Model
 {
@@ -12,6 +11,11 @@ class News extends Model
     protected $fillable = [
         'title', 'text', 'status',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_news');
+    }
 
     /**
      * create news
@@ -23,7 +27,6 @@ class News extends Model
     {
         $news = new static;
         $news->fill($fields);
-        $news->user_id = Auth::user()->id;
         $news->save();
         return $news;
     }
@@ -49,36 +52,25 @@ class News extends Model
     }
 
     /**
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @param $data
      */
-    public function users()
+    public function setUsers($data)
     {
-        return $this->belongsToMany(
-            User::class,
-            'user_news',
-            'news_id',
-            'user_id'
-        );
-    }
-    public function setUsers($date)
-    {
-        if ($date == null) {
+        if ($data == null) {
             return;
         }
-        $this->users()->sync($date);
+        $this->users()->sync($data);
     }
 
     /**
-     * get users name
-     *
-     * @return string
+     * @param $data
      */
-    public function getUsersNames()
+    public function setUser($data)
     {
-        return (!$this->users()->isEmpty())
-            ? implode(', ', $this->users->pluck('name')->all())
-            : 'Not any users';
+        if ($data == null) {
+            return;
+        }
+        $this->users()->sync($data);
     }
 
 }

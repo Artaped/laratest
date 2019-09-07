@@ -28,7 +28,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+        $users = User::where('admin' ,'=' ,0)->get();
         return view('admin.news.create', ['users' => $users]);
     }
 
@@ -53,7 +53,7 @@ class NewsController extends Controller
     public function show($id)
     {
         $news = News::where('id', $id)->firstOrFail();
-        $users = User::all();
+        $users = User::where('admin' ,'=' ,0)->get();
         return view('admin.news.edit', ['news' => $news, 'users' => $users]);
     }
 
@@ -65,7 +65,9 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $news = News::where('id', $id)->firstOrFail();
+        $users = User::where('admin' ,'=' ,0)->get();
+        return view('admin.news.edit', ['news' => $news, 'users' => $users]);
     }
 
     /**
@@ -77,7 +79,9 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $news = News::where('id', $id)->firstOrFail();
+        $news->edit($request->all());
+        return redirect()->route('admin.news');
     }
 
     /**
@@ -86,8 +90,9 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+         News::where('id', $id)->firstOrFail()->remove();
         return redirect()->route('admin.news');
     }
 }

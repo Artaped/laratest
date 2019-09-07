@@ -23,16 +23,12 @@
         <tr>
             <td><?=$news->title?></td>
             <td><?=$news->status? "active":"passive"?></td>
-{{--            <td>--}}
-{{--                <a href="#"><button>Change</button></a>--}}
-{{--                <a href="#"><button>Delete</button></a>--}}
-{{--            </td>--}}
             <td>
-                <a href="/admin/news/show/<?=$news->id?>" >
+                <a href="/admin/news/edit/<?=$news->id?>" >
                     <button>Edit</button>
                 </a>
 
-                <a href="/admin/news/delete?<?=$news->id?>">
+                <a href="/admin/news/delete/<?=$news->id?>">
                     <button onclick="return confirm('are you sure?')" >
                         Delete
                     </button>

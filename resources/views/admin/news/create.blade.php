@@ -12,7 +12,7 @@
         Title <br>
         <input type="text" name="title" <?=$_POST['title']?? ''?>><br>
         Authors <br>
-        <label for='formAuthors[]'>Select the Authors:</label><br>
+        <label for='formAuthors[]'>Select Authors:</label><br>
         <select multiple="multiple" name="formAuthors[]">
             <?php foreach ($users as $user): ?>
                 <option value="<?=$user->name?>"><?=$user->name?></option>

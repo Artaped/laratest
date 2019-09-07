@@ -30,7 +30,8 @@ Route::get('/admin', 'HomeController@index')->name('home');
 //admin news
 Route::get('/admin/news/create', 'NewsController@create')->name('news.create');
 Route::post('/admin/news/store', 'NewsController@store');
-Route::get('/admin/news/show/{id}', 'NewsController@show');
+Route::get('/admin/news/edit/{id}', 'NewsController@edit');
+Route::post('/admin/news/edit/{id}', 'NewsController@update');
 Route::get('/admin/news/delete/{id}', 'NewsController@destroy');
 //admin users
 Route::get('/admin/users/create', 'UserController@create')->name('users.edit');

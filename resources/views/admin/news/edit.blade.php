@@ -7,7 +7,8 @@
 @stop
 
 @section('content')
-    <form action="/admin/news/edit?<?=$news->id?>" method="post">
+
+    <form action="/admin/news/edit/<?=$news->id?>" method="post">
         {{ csrf_field() }}
         Title <br>
         <input type="text" name="title" value="<?=$news->title?>"><br>

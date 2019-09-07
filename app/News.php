@@ -30,6 +30,7 @@ class News extends Model
 
     /**
      * edit News
+     *
      * @param $fields
      */
     public function edit($fields)
@@ -39,6 +40,7 @@ class News extends Model
     }
 
     /**remove News
+     *
      * @throws \Exception
      */
     public function remove()
@@ -69,6 +71,7 @@ class News extends Model
 
     /**
      * get users name
+     *
      * @return string
      */
     public function getUsersNames()

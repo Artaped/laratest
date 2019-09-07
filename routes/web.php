@@ -34,8 +34,11 @@ Route::get('/admin/news/edit/{id}', 'NewsController@edit');
 Route::post('/admin/news/edit/{id}', 'NewsController@update');
 Route::get('/admin/news/delete/{id}', 'NewsController@destroy');
 //admin users
-Route::get('/admin/users/create', 'UserController@create')->name('users.edit');
-Route::get('/admin/users/delete', 'UserController@destroy');
+Route::get('/admin/users/create', 'UserController@create')->name('users.create');
+Route::post('/admin/users/store', 'UserController@store');
+Route::get('/admin/users/edit/{id}', 'UserController@edit');
+Route::post('/admin/users/edit/{id}', 'UserController@update');
+Route::get('/admin/users/delete/{id}', 'UserController@destroy');
 
 Route::get('/admin/news', 'NewsController@index')->name('admin.news');
 Route::get('/admin/users', 'UserController@index')->name('admin.users');

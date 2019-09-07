@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -30,6 +29,7 @@ class User extends Authenticatable
 
     /**
      * check user role
+     *
      * @return integer 1 or 0
      */
     public function isAdmin()
@@ -39,6 +39,7 @@ class User extends Authenticatable
 
     /**
      * get user status
+     *
      * @return integer 1 or 0
      */
     public function getStatus()
@@ -55,6 +56,12 @@ class User extends Authenticatable
             'news_id'
         );
     }
+
+    /**
+     * delete User
+     *
+     * @throws \Exception
+     */
     public function remove()
     {
 
@@ -68,9 +75,20 @@ class User extends Authenticatable
      */
     public static function add($filds)
     {
+
         $user = new static;
         $user->fill($filds);
         $user->save();
         return $user;
+    }
+
+    /**
+     * edit User
+     * @param $fields
+     */
+    public function edit($fields)
+    {
+        $this->fill($fields);
+        $this->save();
     }
 }

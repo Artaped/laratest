@@ -4,6 +4,9 @@
 
 @section('content_header')
     <h1>All users</h1>
+    <a href="{{route('users.create')}}" >
+        <button>Create News</button>
+    </a>
 @stop
 
 @section('content')
@@ -35,11 +38,11 @@
 {{--                 <a href="#"><button>Delete</button></a>--}}
 {{--             </td>--}}
             <td>
-                <a href="{{route('users.edit')}}" >
+                <a href="/admin/users/edit/<?=$user->id?>"" >
                     <button>Edit</button>
                 </a>
 
-                <a href="/admin/users/delete?id=1">
+                <a href="/admin/users/delete/<?=$user->id?>">
                     <button onclick="return confirm('are you sure?')" >
                        Delete
                     </button>

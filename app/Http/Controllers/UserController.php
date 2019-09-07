@@ -37,7 +37,11 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if($request->password !== $request->confirm_password) {
+            return redirect()->route('admin.users');
+        }
+        $user = User::add($request->all());
+        return redirect()->route('admin.users');
     }
 
     /**
@@ -59,7 +63,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::where('id', $id)->firstOrFail();
+        return view('admin.users.edit', ['user' => $user]);
     }
 
     /**
@@ -71,7 +76,9 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::where('id', $id)->firstOrFail();
+        $user->edit($request->all());
+        return redirect()->route('admin.users');
     }
 
     /**
@@ -80,8 +87,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy()
+    public function destroy($id)
     {
+        User::where('id', $id)->firstOrFail()->remove();
         return redirect()->route('admin.users');
     }
 }

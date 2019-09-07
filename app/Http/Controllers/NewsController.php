@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\News;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Foundation\Validation;
 
 class NewsController extends Controller
 {
@@ -13,7 +17,8 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return view('admin.news.news');
+        $newses =  DB::table('news')->paginate(2);
+        return view('admin.news.news', ['newses'=> $newses]);
     }
 
     /**
@@ -23,7 +28,8 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view('admin.news.create');
+        $users = User::all();
+        return view('admin.news.create', ['users' => $users]);
     }
 
     /**
@@ -34,7 +40,8 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $news = News::add($request->all());
+        return redirect()->route('admin.news');
     }
 
     /**
@@ -45,7 +52,9 @@ class NewsController extends Controller
      */
     public function show($id)
     {
-        //
+        $news = News::where('id', $id)->firstOrFail();
+        $users = User::all();
+        return view('admin.news.edit', ['news' => $news, 'users' => $users]);
     }
 
     /**

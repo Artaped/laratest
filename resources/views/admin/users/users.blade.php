@@ -25,8 +25,7 @@
              <td><?= $user->status? "active" : "passive" ?></td>
              <td>
                  <ul>
-                     <?php foreach ($user->news as $news):?>
-                     <li><?= $news->title?></li>
+                     <?php foreach ($user as $news):?>
                      <?php endforeach;?>
                  </ul>
 
@@ -50,4 +49,5 @@
     <?php endforeach;?>
     </tbody>
 </table>
+<?php echo $users->render(); ?>
 @stop

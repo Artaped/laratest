@@ -77,4 +77,5 @@ class News extends Model
             ? implode(', ', $this->users->pluck('name')->all())
             : 'Not any users';
     }
+
 }

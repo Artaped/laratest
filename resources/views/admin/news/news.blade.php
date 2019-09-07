@@ -4,6 +4,9 @@
 
 @section('content_header')
     <h1>All news</h1>
+    <a href="{{route('news.create')}}" >
+        <button>Create News</button>
+    </a>
 @stop
 
 @section('content')
@@ -16,25 +19,28 @@
         </tr>
         </thead>
         <tbody>
+        <?php foreach ($newses as $news):?>
         <tr>
-            <td>Vasia</td>
-            <td>Admin</td>
+            <td><?=$news->title?></td>
+            <td><?=$news->status? "active":"passive"?></td>
 {{--            <td>--}}
 {{--                <a href="#"><button>Change</button></a>--}}
 {{--                <a href="#"><button>Delete</button></a>--}}
 {{--            </td>--}}
             <td>
-                <a href="{{route('news.edit')}}" >
+                <a href="/admin/news/show/<?=$news->id?>" >
                     <button>Edit</button>
                 </a>
 
-                <a href="/admin/news/delete?id=1">
+                <a href="/admin/news/delete?<?=$news->id?>">
                     <button onclick="return confirm('are you sure?')" >
                         Delete
                     </button>
                 </a>
             </td>
         </tr>
+        <?php endforeach;?>
         </tbody>
     </table>
+    <?php echo $newses->render(); ?>
 @stop

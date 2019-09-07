@@ -18,16 +18,18 @@
         </tr>
     </thead>
     <tbody>
+    <?php foreach($users as $user): ?>
         <tr>
-             <td>Vasia</td>
-             <td>32@i.on</td>
-             <td>Admin</td>
+             <td><?= $user->name?></td>
+             <td><?= $user->email?></td>
+             <td><?= $user->status? "active" : "passive" ?></td>
              <td>
                  <ul>
-                     <li>11111</li>
-                     <li>2222</li>
-                     <li>333</li>
+                     <?php foreach ($user->news as $news):?>
+                     <li><?= $news->title?></li>
+                     <?php endforeach;?>
                  </ul>
+
              </td>
 {{--             <td>--}}
 {{--                 <a href="/admin/users/create"><button>Change</button></a>--}}
@@ -45,6 +47,7 @@
                 </a>
             </td>
         </tr>
+    <?php endforeach;?>
     </tbody>
 </table>
 @stop

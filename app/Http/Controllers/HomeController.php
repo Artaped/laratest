@@ -25,10 +25,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-            $user = Auth::user()->admin;
-            if (Auth::check() && Auth::user()->admin === 1) {
                 return view('home');
-            }
-            return view('home');
     }
 }

@@ -10,6 +10,7 @@
 @stop
 
 @section('content')
+    @include('messages.status')
     <table id="news" class="table table-bordered table-striped">
         <thead>
         <tr>

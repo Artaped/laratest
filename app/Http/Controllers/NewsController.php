@@ -16,7 +16,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $newses = DB::table('news')->paginate(2);
+        $newses = DB::table('news')->paginate(6);
 
         return view('admin.news.news', ['newses' => $newses]);
     }
@@ -28,23 +28,26 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $users = User::where('admin', '=', 0)->get();
+        $users = User::where('admin',  0)->get();
         return view('admin.news.create', ['users' => $users]);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required',
+            'text' => 'required',
+        ]);
         $news = News::add($request->all());
         if($request->input('users')){
             $news->users()->attach($request->input('users'));
         }
-        return redirect()->route('admin.news', $news);
+        return redirect()->route('admin.news', $news)->with('status', 'news created');
     }
 
     /**
@@ -72,20 +75,25 @@ class NewsController extends Controller
         return view('admin.news.edit', ['news' => $news, 'users' => $users]);
     }
 
+
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return bool
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, $id)
     {
-        $news = News::where('id', $id)->firstOrFail();
+        $this->validate($request, [
+            'title' => 'required',
+            'text' => 'required',
+        ]);
+        $news = News::find($id);
         $news->edit($request->all());
-        if($request->input('users')){
-            $news->users()->attach($request->input('users'));
-        }
+// you can change authors this news
+//        if($request->input('users')){
+//            $news->users()->attach($request->input('users'));
+//        }
         return redirect()->route('admin.news');
     }
 
@@ -97,7 +105,7 @@ class NewsController extends Controller
      */
     public function destroy($id)
     {
-        News::where('id', $id)->firstOrFail()->remove();
-        return redirect()->route('admin.news');
+        News::find($id)->remove();
+        return redirect()->route('admin.news')->with('status', 'news deleted');
     }
 }

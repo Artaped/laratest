@@ -7,7 +7,7 @@
 @stop
 
 @section('content')
-
+    @include('messages.status')
     <form action="/admin/news/edit/{{ $news->id }}" method="post">
         {{ csrf_field() }}
         Title <br>
@@ -17,7 +17,7 @@
         <select multiple="multiple" name="users[]">
                 @foreach($users as  $user)
                     @if($user->admin != 1)
-                    <option value="{{ $user->id }}">{{ $user->name }}</option>
+                    <option>{{ $user->name }}</option>
                     @endif
                 @endforeach
         </select><br>

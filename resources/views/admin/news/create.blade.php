@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+    @include('messages.status')
     <form action="{{ route('news.store') }}" method="post">
         {{ csrf_field() }}
         Title <br>

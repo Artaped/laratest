@@ -7,17 +7,8 @@
 @stop
 
 @section('content')
-    <script>
-        function validate() {
 
-            if (document.getElementById("password").value !== document.getElementById("confirm_password").value) {
-                alert("Passwords do no match")
-                return false;
-            } else {
-                return document.getElementById("password").value == document.getElementById("confirm_password").value;
-            }
-        }
-    </script>
+    @include('messages.status')
     <form onSubmit="return validate()" action="{{ route('user.store') }}" method="post">
         {{ csrf_field() }}
         Name <br>
@@ -27,7 +18,7 @@
         Password <br>
         <input type="password" name="password" id="password" required><br>
         Confirm Password <br>
-        <input type="password" name="confirm_password" id="confirm_password" required><br>
+        <input type="password" name="password_confirmation" id="password_confirmation" required><br>
         Status <br>
         Active User<input type="radio" name="status" value="1" ><br>
         Passive User<input type="radio" name="status" value="0" checked><br>

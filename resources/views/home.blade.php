@@ -8,5 +8,6 @@
 @stop
 
 @section('content')
+    @include('messages.status')
     <p>You are logged in!</p>
 @stop

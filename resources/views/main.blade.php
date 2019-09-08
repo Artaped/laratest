@@ -6,6 +6,7 @@
             <li><a href="{{ route('page.create.news') }}">Create News</a></li>
         </ul>
     </div>
+    @include('messages.status')
 <div class="row">
     <div class="col-6" style=""align="center">
         <h3>News: </h3>

@@ -6,6 +6,7 @@ use App\News;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -16,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(2);
+        $users = User::paginate(6);
         return view('admin.users.users', ['users' => $users]);
     }
 
@@ -30,20 +31,23 @@ class UserController extends Controller
         return view('admin.users.create');
     }
 
+
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
-        if($request->password !== $request->confirm_password) {
-            return redirect()->route('admin.users');
-        }
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|confirmed',
+        ]);
+
         $user = User::add($request->all());
         $user->setNews($request->get('news'));
-        return redirect()->route('admin.users');
+        return redirect()->route('admin.users')->with('status', 'User created');
     }
 
     /**
@@ -72,15 +76,25 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, $id)
     {
-        $user = User::where('id', $id)->firstOrFail();
+        $user = User::find($id);
+        $this->validate($request, [
+            'name' => 'required',
+            'email' =>  [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($user->id),
+            ],
+            'password' => 'required|confirmed',
+            //'avatar' => 'nullable|image'
+        ]);
+
         $user->edit($request->all());
         return redirect()->route('admin.users');
     }
@@ -93,7 +107,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::where('id', $id)->firstOrFail()->remove();
-        return redirect()->route('admin.users');
+         User::find($id)->remove();
+        return redirect()->route('admin.users')->with('status', 'user deleted');
     }
 }

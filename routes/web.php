@@ -53,6 +53,8 @@ Route::get('/admin/users', 'UserController@index')->name('admin.users');
 //users crud
 Route::get('/main/create', 'PageController@create')->name('page.create.news');
 Route::post('/main/store', 'PageController@store')->name('page.store.news');
-Route::post('/main/store', 'PageController@store')->name('page.store.news');
+Route::get('/main/edit/{id}', 'PageController@edit')->name('page.edit.news');
+Route::post('/main/edit/{id}', 'PageController@update')->name('page.update.news');
+Route::get('/main/delete/{id}', 'PageController@destroy');
 
 

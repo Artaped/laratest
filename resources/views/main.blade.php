@@ -24,11 +24,11 @@
                     <td>{{ $news->title }}</td>
                     <td>{{ $news->status? "active":"passive" }}</td>
                     <td>
-                        <a href="/admin/news/edit/{{ $news->id }}" >
+                        <a href="/main/edit/{{ $news->id }}" >
                             <button>Edit</button>
                         </a>
 
-                        <a href="/admin/news/delete/{{ $news->id }}">
+                        <a href="/main/delete/{{ $news->id }}">
                             <button onclick="return confirm('are you sure?')" >
                                 Delete
                             </button>

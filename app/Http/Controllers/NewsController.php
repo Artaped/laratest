@@ -69,9 +69,8 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        $news = News::where('id', $id)->firstOrFail();
+        $news = News::find($id);
         $users = $news->users->where('admin', 0)->all();
-        //dd($users);
         return view('admin.news.edit', ['news' => $news, 'users' => $users]);
     }
 
@@ -90,11 +89,11 @@ class NewsController extends Controller
         ]);
         $news = News::find($id);
         $news->edit($request->all());
-// you can change authors this news
+// you can change authors this news if use this code
 //        if($request->input('users')){
 //            $news->users()->attach($request->input('users'));
 //        }
-        return redirect()->route('admin.news');
+        return redirect()->route('main');
     }
 
     /**

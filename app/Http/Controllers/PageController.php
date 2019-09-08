@@ -16,7 +16,7 @@ class PageController extends Controller
     public function index()
     {
         $newses = News::all();
-        $users = User::all();
+        $users = User::all()->where('admin', 0);
         return view('main', ['newses' => $newses, 'users' => $users]);
     }
 
@@ -32,15 +32,18 @@ class PageController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'title' => 'required',
+            'text' => 'required',
+        ]);
         $news = News::add($request->all());
-        if($request->input('users')){
+        if ($request->input('users')) {
             $news->users()->attach($request->input('users'));
         }
         return redirect()->route('main', $news);
@@ -49,7 +52,7 @@ class PageController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      *
      * @return \Illuminate\Http\Response
      */
@@ -61,34 +64,46 @@ class PageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $news = News::find($id);
+        $users = $news->users->where('admin', 0)->all();
+        return view('pages.edit', ['news' => $news, 'users' => $users]);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'text' => 'required',
+        ]);
+        $news = News::find($id);
+        $news->edit($request->all());
+// you can change authors this news
+//        if($request->input('users')){
+//            $news->users()->attach($request->input('users'));
+//        }
+        return redirect()->route('main');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        News::find($id)->remove();
+        return redirect()->route('main')->with('status', 'news deleted');
     }
 }

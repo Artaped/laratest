@@ -16,6 +16,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/main', function () {
+    return view('welcome')->name('main');
+});
 
 //Auth::routes();
 //отображение формы аутентификации
@@ -27,7 +30,9 @@ Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('re
 Route::post('register', 'Auth\RegisterController@register');
 
 //Admin
-Route::get('/admin', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/main', 'PageController@index')->name('main');
+Route::get('/admin', 'HomeController@admin')->name('admin');
 
 //admin news
 Route::get('/admin/news/create', 'NewsController@create')->name('news.create');
@@ -44,4 +49,10 @@ Route::get('/admin/users/delete/{id}', 'UserController@destroy');
 
 Route::get('/admin/news', 'NewsController@index')->name('admin.news');
 Route::get('/admin/users', 'UserController@index')->name('admin.users');
+
+//users crud
+Route::get('/main/create', 'PageController@create')->name('page.create.news');
+Route::post('/main/store', 'PageController@store')->name('page.store.news');
+Route::post('/main/store', 'PageController@store')->name('page.store.news');
+
 

@@ -1,13 +1,7 @@
-@extends('adminlte::page')
-
-@section('title', 'AdminLTE')
-
-@section('content_header')
-    <h1>Add News</h1>
-@stop
+@extends('layouts.app')
 
 @section('content')
-    <form action="{{ route('news.store') }}" method="post">
+    <form action="{{ route('page.store.news') }}" method="post">
         {{ csrf_field() }}
         Title <br>
         <input type="text" name="title" required><br>
@@ -21,9 +15,8 @@
         Text <br>
         <textarea name="text"  id="" cols="30" rows="10" required></textarea><br>
         Status <br>
-        Active <input type="radio" name="status" value="1"/> <br>
+        Active <input type="radio" name="status" value="1"/>
         Passive <input type="radio" name="status" value="0" checked/> <br>
         <button type="submit">Submit</button>
     </form>
-
-@stop
+@endsection

@@ -69,12 +69,12 @@
 
     <div class="top-right links">
 
-        <a href="{{ url('/admin') }}">Admin</a>
-        {{--                        <a href="{{ route('login') }}">Login</a>--}}
+{{--        <a href="{{ url('/admin') }}">Admin</a>--}}
+         <a href="{{ route('login') }}">Login</a>
+
         <a href="{{ route('register') }}">Register</a>
 
     </div>
-
 
     <div class="content">
         <div class="title m-b-md">

@@ -18,8 +18,9 @@
         <input type="password" name="password" value="{{ $user->password }}"><br>
         Confirm Password <br>
         <input type="password" name="confirm_password" value="{{ $user->password }}"><br>
-        Status <br>
-        <input type="radio" name="status" value="1" placeholder="{{ $user->status? "active" : "passive" }}"/><br>
+        Status : {{ $user->status? "active" : "passive" }} <br>
+        Active <input type="radio" name="status" value="1"/> <br>
+        Passive <input type="radio" name="status" value="0" checked/> <br>
         <button type="submit">Submit</button>
     </form>
 

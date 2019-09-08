@@ -5,9 +5,8 @@ namespace App\Http\Controllers;
 use App\News;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-class NewsController extends Controller
+class PageController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,9 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $newses = DB::table('news')->paginate(2);
-
-        return view('admin.news.news', ['newses' => $newses]);
+        $newses = News::all();
+        $users = User::all();
+        return view('main', ['newses' => $newses, 'users' => $users]);
     }
 
     /**
@@ -29,13 +28,13 @@ class NewsController extends Controller
     public function create()
     {
         $users = User::where('admin', '=', 0)->get();
-        return view('admin.news.create', ['users' => $users]);
+        return view('pages.create', ['users' => $users]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -44,13 +43,13 @@ class NewsController extends Controller
         if($request->input('users')){
             $news->users()->attach($request->input('users'));
         }
-        return redirect()->route('admin.news', $news);
+        return redirect()->route('main', $news);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -61,43 +60,34 @@ class NewsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $news = News::where('id', $id)->firstOrFail();
-        $users = $news->users->where('admin', 0)->all();
-        //dd($users);
-        return view('admin.news.edit', ['news' => $news, 'users' => $users]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $news = News::where('id', $id)->firstOrFail();
-        $news->edit($request->all());
-        if($request->input('users')){
-            $news->users()->attach($request->input('users'));
-        }
-        return redirect()->route('admin.news');
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param int $id
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        News::where('id', $id)->firstOrFail()->remove();
-        return redirect()->route('admin.news');
+        //
     }
 }

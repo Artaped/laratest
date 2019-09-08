@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -79,6 +80,7 @@ class User extends Authenticatable
 
     /**
      * edit User
+     *
      * @param $fields
      */
     public function edit($fields)
@@ -88,6 +90,7 @@ class User extends Authenticatable
     }
 
     /**
+     *set news in user_news table (m2m)
      *
      * @param $data
      */
@@ -97,5 +100,44 @@ class User extends Authenticatable
             return;
         }
         $this->news()->sync($data);
+    }
+
+    /**
+     * get user avatar or get default img
+     *
+     * @return string
+     */
+    public function getImage()
+    {
+        if ($this->avatar == null) {
+            return '/img/no-image.png';
+        }
+        return '/uploads/' . $this->avatar;
+    }
+
+    /**
+     * upload image as user avatar
+     * @param $image
+     */
+    public function uploadAvatar($image)
+    {
+        if ($image == null) {
+            return;
+        }
+        $this->removeAvatar();
+        $filename = str_random(10) . '.' . $image->extension();
+        $image->storeAs('uploads', $filename);
+        $this->avatar = $filename;
+        $this->save();
+    }
+
+    /**
+     *if avatar exist remove avatar
+     */
+    public function removeAvatar()
+    {
+        if ($this->avatar != null) {
+            Storage::delete('uploads/' . $this->avatar);
+        }
     }
 }

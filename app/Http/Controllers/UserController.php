@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\News;
 use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -43,10 +43,12 @@ class UserController extends Controller
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|confirmed',
+            'avatar' => 'nullable|image',
         ]);
 
         $user = User::add($request->all());
         $user->setNews($request->get('news'));
+        $user->uploadAvatar($request->file('avatar'));
         return redirect()->route('admin.users')->with('status', 'User created');
     }
 
@@ -69,7 +71,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::where('id', $id)->firstOrFail();
+        $user = User::find($id);
         $newses = News::pluck('title', 'id')->all();
         $selectedNews = $user->news->pluck('id')->all();
         return view('admin.users.edit', ['user' => $user, 'selectedNews'=>$selectedNews, 'newses' => $newses]);
@@ -91,11 +93,12 @@ class UserController extends Controller
                 'email',
                 Rule::unique('users')->ignore($user->id),
             ],
-            'password' => 'required|confirmed',
-            //'avatar' => 'nullable|image'
+            'password' => 'required',
+            'avatar' => 'nullable'
         ]);
 
         $user->edit($request->all());
+        $user->uploadAvatar($request->file('avatar'));
         return redirect()->route('admin.users');
     }
 

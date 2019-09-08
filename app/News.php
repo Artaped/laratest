@@ -62,15 +62,4 @@ class News extends Model
         $this->users()->sync($data);
     }
 
-    /**
-     * @param $data
-     */
-    public function setUser($data)
-    {
-        if ($data == null) {
-            return;
-        }
-        $this->users()->sync($data);
-    }
-
 }

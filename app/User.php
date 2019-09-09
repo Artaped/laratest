@@ -140,4 +140,17 @@ class User extends Authenticatable
             Storage::delete('uploads/' . $this->avatar);
         }
     }
+
+    /**
+     * generate new password for user
+     *
+     * @param $password
+     */
+    public function generatePassword($password)
+    {
+        if ($password != null) {
+            $this->password = bcrypt($password);
+            $this->save();
+        }
+    }
 }

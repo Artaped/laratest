@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(6);
+        $users = User::where('admin', 0)->paginate(4);
         return view('admin.users.users', ['users' => $users]);
     }
 
@@ -48,6 +48,7 @@ class UserController extends Controller
 
         $user = User::add($request->all());
         $user->setNews($request->get('news'));
+        $user->generatePassword($request->get('password'));
         $user->uploadAvatar($request->file('avatar'));
         return redirect()->route('admin.users')->with('status', 'User created');
     }
@@ -98,6 +99,7 @@ class UserController extends Controller
         ]);
 
         $user->edit($request->all());
+        $user->generatePassword($request->get('password'));
         $user->uploadAvatar($request->file('avatar'));
         return redirect()->route('admin.users');
     }

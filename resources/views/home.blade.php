@@ -4,10 +4,10 @@
 @section('title', 'AdminLTE')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Admin Dashboard</h1>
 @stop
 
 @section('content')
     @include('messages.status')
-    <p>You are logged in!</p>
+    <img src="{{ asset('img/adm.jpg') }}" alt="">
 @stop

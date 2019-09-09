@@ -49,7 +49,6 @@
                 <th>E-mail</th>
                 <th>Status</th>
                 <th>User News</th>
-                <th>Действия</th>
             </tr>
             </thead>
             <tbody>
@@ -64,18 +63,6 @@
                                 <li>{{ $news }}</li>
                             @endforeach
                         </ul>
-
-                    </td>
-                    <td>
-                        <a href="/admin/users/edit/{{ $user->id }}" >
-                            <button>Edit</button>
-                        </a>
-
-                        <a href="/admin/users/delete/{{ $user->id }}">
-                            <button onclick="return confirm('are you sure?')">
-                                Delete
-                            </button>
-                        </a>
                     </td>
                 </tr>
             @endforeach

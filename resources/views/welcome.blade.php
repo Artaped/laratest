@@ -37,16 +37,12 @@
 
         .top-right {
             position: absolute;
-            right: 10px;
+            left: 50px;
             top: 18px;
         }
 
         .content {
             text-align: center;
-        }
-
-        .title {
-            font-size: 84px;
         }
 
         .links > a {
@@ -59,11 +55,12 @@
             text-transform: uppercase;
         }
 
-        .m-b-md {
-            margin-bottom: 30px;
-        }
-        img{
+        img {
             margin-top: 100px;
+        }
+        a{
+            border: 2px solid #e34761;
+            border-radius: 10px
         }
     </style>
 </head>
@@ -71,11 +68,13 @@
 <div class="flex-center position-ref full-height">
 
     <div class="top-right links">
-         <a href="{{ route('main') }}">News</a>
+        <b> If you want create and edit news click  --></b>
+        <a href="{{ route('main') }}">News</a>
     </div>
 
     <div class="content">
-            <img src="{{ asset('img/67541170_2653675371332385_1024664345105137664_n.jpg') }}" alt="" width="900" height="500">
+        <img src="{{ asset('img/67541170_2653675371332385_1024664345105137664_n.jpg') }}" alt="" width="900"
+             height="500">
     </div>
 </div>
 </body>

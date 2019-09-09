@@ -12,7 +12,7 @@ class NewsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function index()
     {
@@ -24,7 +24,7 @@ class NewsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -34,7 +34,7 @@ class NewsController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @return news
      * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
@@ -51,20 +51,10 @@ class NewsController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param int $id
+     *
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -93,7 +83,7 @@ class NewsController extends Controller
 //        if($request->input('users')){
 //            $news->users()->attach($request->input('users'));
 //        }
-        return redirect()->route('main');
+        return redirect()->route('admin.news');
     }
 
     /**

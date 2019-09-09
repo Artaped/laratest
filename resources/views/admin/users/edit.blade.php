@@ -11,16 +11,28 @@
     <form action="/admin/users/edit/{{ $user->id }}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
         Name <br>
-        <input type="text" name="name" value="{{ $user->name }}"><br>
+        <label>
+            <input type="text" name="name" value="{{ $user->name }}">
+        </label><br>
         E-mail <br>
-        <input type="text" name="email" value="{{ $user->email  }}"><br>
+        <label>
+            <input type="text" name="email" value="{{ $user->email  }}">
+        </label><br>
         Password <br>
-        <input type="password" name="password" value="{{ $user->password }}"><br>
+        <label>
+            <input type="password" name="password" value="{{ $user->password }}">
+        </label><br>
         Confirm Password <br>
-        <input type="password" name="password_confirmation" value="{{ $user->password }}><br>
+        <label>
+            <input type="password" name="password_confirmation" value="{{ $user->password }}">
+        </label><br>
         Status : {{ $user->status? "active" : "passive" }} <br>
-        Active <input type="radio" name="status" value="1"/> <br>
-        Passive <input type="radio" name="status" value="0" checked/> <br>
+        Active <label>
+            <input type="radio" name="status" value="1"/>
+        </label> <br>
+        Passive <label>
+            <input type="radio" name="status" value="0" checked/>
+        </label> <br>
         Аватар <br>
         <img src="{{ $user->getImage() }}" alt="">
         <input type="file" name="avatar">

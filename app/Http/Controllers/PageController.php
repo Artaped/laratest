@@ -27,7 +27,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        $users = User::where('admin', '=', 0)->get();
+        $users = User::all()->where('admin', '=', 0);
         return view('pages.create', ['users' => $users]);
     }
 
@@ -46,7 +46,7 @@ class PageController extends Controller
         if ($request->input('users')) {
             $news->users()->attach($request->input('users'));
         }
-        return redirect()->route('main', $news);
+        return redirect()->route('main', $news)->with('status', 'news created');
     }
 
     /**

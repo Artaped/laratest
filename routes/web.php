@@ -28,7 +28,7 @@ Route::post('register', 'Auth\RegisterController@register');
 //Admin
 Route::get('/admin', 'HomeController@index')->name('home');
 Route::get('/main', 'PageController@index')->name('main');
-Route::group(['middleware' => 'auth'], function(){
+Route::group(['middleware' => 'admin'], function(){
 //admin news
 Route::get('/admin/news/create', 'NewsController@create')->name('news.create');
 Route::post('/admin/news/store', 'NewsController@store')->name('news.store');

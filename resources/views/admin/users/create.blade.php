@@ -12,24 +12,33 @@
     <form action="{{ route('user.store') }}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
             Name <br>
-        <input type="text" name="name" required value="{{old('name')}}"><br>
+        <label>
+            <input type="text" name="name" required value="{{old('name')}}">
+        </label><br>
             E-mail <br>
-        <input type="text" name="email" required value="{{old('email')}}"><br>
+        <label>
+            <input type="text" name="email" required value="{{old('email')}}">
+        </label><br>
             Password <br>
-        <input type="password" name="password" id="password" required><br>
+        <label for="password"></label><input type="password" name="password" id="password" required><br>
             Confirm Password <br>
-        <input type="password" name="password_confirmation" id="password_confirmation" required><br>
+        <label for="password_confirmation"></label><input type="password" name="password_confirmation" id="password_confirmation" required><br>
         Status <br>
             Active User
-        <input type="radio" name="status" value="1"><br>
+        <label>
+            <input type="radio" name="status" value="1">
+        </label><br>
             Passive User
-        <input type="radio" name="status" value="0" checked><br>
+        <label>
+            <input type="radio" name="status" value="0" checked>
+        </label><br>
             Аватар
         <input type="file" id="file" name="avatar"/>
         <div id="output"></div>
         <button type="submit">Submit</button>
     </form>
     <script>
+        //js code for image preview
         function handleFileSelect(evt) {
             var file = evt.target.files; // FileList object
             var f = file[0];

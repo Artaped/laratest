@@ -8,7 +8,7 @@
     </div>
     @include('messages.status')
 <div class="row">
-    <div class="col-6" style=""align="center">
+    <div class="col-6" style="text-align:  center;">
         <h3>News: </h3>
         <table id="news" class="table table-bordered table-striped">
             <thead>
@@ -40,7 +40,7 @@
         </table>
     </div>
 
-    <div class="col-6" style=""align="center">
+    <div class="col-6" style="text-align:  center">
         <h3>Users</h3>
         <table id="users" class="table table-bordered table-striped">
             <thead>

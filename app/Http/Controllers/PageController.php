@@ -50,18 +50,6 @@ class PageController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param int $id
@@ -92,6 +80,8 @@ class PageController extends Controller
 //        if($request->input('users')){
 //            $news->users()->attach($request->input('users'));
 //        }
+        //use method news->setUser
+        $news->setUsers($request->input('users'));
         return redirect()->route('main');
     }
 

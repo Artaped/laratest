@@ -79,10 +79,9 @@ class NewsController extends Controller
         ]);
         $news = News::find($id);
         $news->edit($request->all());
-// you can change authors this news if use this code
-//        if($request->input('users')){
-//            $news->users()->attach($request->input('users'));
-//        }
+
+        //use method news->setUser
+        $news->setUsers($request->input('users'));
         return redirect()->route('admin.news');
     }
 

@@ -18,7 +18,7 @@
             <th>E-mail</th>
             <th>Status</th>
             <th>User News</th>
-            <th>Действия</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>

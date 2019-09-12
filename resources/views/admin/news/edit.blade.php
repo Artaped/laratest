@@ -19,9 +19,7 @@
         <label>
             <select multiple="multiple" name="users[]">
                     @foreach($users as  $user)
-                        @if($user->admin != 1)
-                        <option>{{ $user->name }}</option>
-                        @endif
+                        <option value="{{$user->id}}">{{ $user->name }}</option>
                     @endforeach
             </select>
         </label><br>

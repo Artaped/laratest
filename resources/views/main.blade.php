@@ -2,20 +2,18 @@
 
 @section('content')
     <div class="row">
-        <ul>
-            <li><a href="{{ route('page.create.news') }}">Create News</a></li>
-        </ul>
+            <button style="margin-left: 40px"><a href="{{ route('page.create.news') }}">Create News</a></button>
     </div>
     @include('messages.status')
 <div class="row">
-    <div class="col-6" style="text-align:  center;">
+    <div class="col-12" style="text-align:  center;">
         <h3>News: </h3>
         <table id="news" class="table table-bordered table-striped">
             <thead>
             <tr>
                 <th>Title</th>
                 <th>Status</th>
-                <th>Действия</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
@@ -33,36 +31,6 @@
                                 Delete
                             </button>
                         </a>
-                    </td>
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
-
-    <div class="col-6" style="text-align:  center">
-        <h3>Users</h3>
-        <table id="users" class="table table-bordered table-striped">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>E-mail</th>
-                <th>Status</th>
-                <th>User News</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($users as $user)
-                <tr>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->status ? "active" : "passive" }} </td>
-                    <td>
-                        <ul>
-                            @foreach($user->news()->pluck('title') as $news)
-                                <li>{{ $news }}</li>
-                            @endforeach
-                        </ul>
                     </td>
                 </tr>
             @endforeach

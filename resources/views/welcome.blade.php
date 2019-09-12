@@ -58,18 +58,17 @@
         img {
             margin-top: 100px;
         }
-        a{
-            border: 2px solid #e34761;
-            border-radius: 10px
-        }
-    </style>
+button a{
+    color: #636b6f;
+}
+</style>
 </head>
 <body>
 <div class="flex-center position-ref full-height">
 
     <div class="top-right links">
-        <b> If you want create and edit news click  --></b>
-        <a href="{{ route('main') }}">News</a>
+        <b> If you want create and edit news, click  --></b>
+        <button><a href="{{ route('main') }}">Create News</a></button>
     </div>
 
     <div class="content">

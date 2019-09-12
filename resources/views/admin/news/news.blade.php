@@ -16,7 +16,7 @@
         <tr>
             <th>Title</th>
             <th>Status</th>
-            <th>Действия</th>
+            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
